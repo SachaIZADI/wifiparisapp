@@ -14,7 +14,7 @@ library(shinyjs)
     sidebarMenu(
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       menuItem("Raw data", tabName = "Raw_data", icon = icon("database")),
-      menuItem("Source code", icon = icon("file-code-o"), href = "https://github.com/amirbenmahjoub")
+      menuItem("Source code", icon = icon("file-code-o"), href = "https://github.com/amirbenmahjoub/wifiparisapp")
     ),
 
     uiOutput("Date scope"),
