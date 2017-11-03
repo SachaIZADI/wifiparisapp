@@ -17,20 +17,6 @@ shinyServer(function(input, output) {
   output$`Date scope` <- renderUI({dateRangeInput(inputId = "Date scope", label = "Date scope", language = "fr", start = "2016-01-01", end  = "2016-12-31")})
   output$`Duration scope` <- renderUI({sliderInput("Duration scope", "Duration scope", min = 0, max = 7200, value = c(0, 7200))})
   
-
-  
-  duration_min<-  reactive({input$`Duration scope`[1]})  
-  duration_max<-  reactive({input$`Duration scope`[2]}) 
-  districts<- reactive({input$Borought}) 
-  cat_sites<- reactive({input$`Category site`}) 
-  sites<- reactive({input$Site}) 
-  countries<- reactive({input$Country}) 
-  devices<- reactive({input$`Category device`}) 
-  analysis_axis<- reactive({input$`Analysis axis`})  
-  
-
-  
-  
   
   output$Borought <- renderUI({
     selectizeInput(inputId = "Borought", label = "Borought",  multiple = TRUE, selected = "All", choices = c("All", "1","2","3","4","5","6","7","8","9","10","11","12","13","14",
@@ -150,6 +136,7 @@ shinyServer(function(input, output) {
   })
   
   
+  
   output$data_table <- DT::renderDataTable(DT::datatable({
     
     if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
@@ -171,7 +158,14 @@ shinyServer(function(input, output) {
   
   
   
-  
+  duration_min<-  reactive({input$`Duration scope`[1]})  
+  duration_max<-  reactive({input$`Duration scope`[2]}) 
+  districts<- reactive({input$Borought}) 
+  cat_sites<- reactive({input$`Category site`}) 
+  sites<- reactive({input$Site}) 
+  countries<- reactive({input$Country}) 
+  devices<- reactive({input$`Category device`}) 
+  analysis_axis<- reactive({input$`Analysis axis`})  
   
   
   

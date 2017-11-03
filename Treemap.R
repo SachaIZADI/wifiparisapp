@@ -27,9 +27,14 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
     data = data_Viz3_plot %>%  mutate( None = "None") %>% select(date, None, duration, nb_connexions) %>% group_by(date,None) %>%
       summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(None) %>% 
       summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
+
+      p<-d3tree3(treemap(data, index= "None",  vSize= "nb_connexions"),
+                 rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])) )
+      
+   
+       
     
-    p<-d3tree3(treemap(data, index= "None",  vSize= "nb_connexions", vColor = "duration", type = "value"),
-            rootname = "Average nb of connexions")
+    
     
      }
     
@@ -40,8 +45,20 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
          summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(Country) %>% 
          summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
        
-       p<-d3tree3(treemap(data, index= "Country",  vSize= "nb_connexions", vColor = "duration", type = "value"),
-               rootname = "Average nb of connexions")
+       if (length(data$nb_connexions)==1){
+         
+         p<-d3tree3(treemap(data, index= "Country",  vSize= "nb_connexions"),
+                    rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+       }
+       
+       else {
+         
+         p<-d3tree3(treemap(data, index= "Country",  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                 rootname = "Average nb of connexions")
+         
+       }
+       
+       
      }
      
      else {
@@ -50,8 +67,19 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
          summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(Country) %>% 
          summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% full_join(mapping_country_region, by = "Country")
        
-       p<-d3tree3(treemap(data, index= c("Region","Country"),  vSize= "nb_connexions", vColor = "duration", type = "value"),
-               rootname = "Average nb of connexions")
+       if (length(data$nb_connexions)==1){
+         
+         p<-d3tree3(treemap(data, index= c("Region","Country"),  vSize= "nb_connexions"),
+                    rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+       }
+       
+       else {
+         
+         p<-d3tree3(treemap(data, index= c("Region","Country"),  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                    rootname = "Average nb of connexions")
+         
+       }
+       
        
      }
      
@@ -63,8 +91,20 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
       summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(category_device) %>% 
       summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
     
-    p<-d3tree3(treemap(data, index= "category_device",  vSize= "nb_connexions", vColor = "duration", type = "value"),
-            rootname = "Average nb of connexions")
+    if (length(data$nb_connexions)==1){
+      
+      p<-d3tree3(treemap(data, index= "category_device",  vSize= "nb_connexions"),
+                 rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+    }
+    
+    else {
+      
+      p<-d3tree3(treemap(data, index= "category_device",  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                 rootname = "Average nb of connexions")
+      
+    }
+    
+  
 
     
     
@@ -74,8 +114,21 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
       summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(site) %>% 
       summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
     
-    p<-d3tree3(treemap(data, index= "site",  vSize= "nb_connexions", vColor = "duration", type = "value"),
-            rootname = "Average nb of connexions")
+    if (length(data$nb_connexions)==1){
+     
+      
+      p<-d3tree3(treemap(data, index= "site",  vSize= "nb_connexions"),
+                 rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+    }
+    
+    else {
+      
+      p<-d3tree3(treemap(data, index= "site",  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                 rootname = "Average nb of connexions")
+      
+    }
+    
+ 
 
    
 
@@ -87,8 +140,21 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(Ardt) %>% 
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
       
-      p<-d3tree3(treemap(data, index= "Ardt",  vSize= "nb_connexions", vColor = "duration", type = "value"),
-             rootname = "Average nb of connexions")
+     
+      
+      if (length(data$nb_connexions)==1){
+        
+        
+        p<-d3tree3(treemap(data, index= "Ardt",  vSize= "nb_connexions"),
+                   rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+      }
+      
+      else {
+        
+        p<-d3tree3(treemap(data, index= "Ardt",  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                   rootname = "Average nb of connexions")
+        
+      }
       
       
       }
@@ -100,8 +166,21 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
       
       
-      p<-d3tree3(treemap(data, index= c("Ardt", "site"),  vSize= "nb_connexions", vColor = "duration", type = "value"),
-              rootname = "Average nb of connexions")
+      
+      
+      if (length(data$nb_connexions)==1){
+
+        
+        p<-d3tree3(treemap(data, index= c("Ardt", "site"),  vSize= "nb_connexions"),
+                   rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+      }
+      
+      else {
+        
+        p<-d3tree3(treemap(data, index= c("Ardt", "site"),  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                   rootname = "Average nb of connexions")
+        
+      }
       
     }
     
@@ -117,8 +196,20 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(category_site) %>% 
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
       
-      p<-d3tree3(treemap(data, index= "category_site",  vSize= "nb_connexions", vColor = "duration", type = "value"),
-              rootname = "Average nb of connexions")
+      if (length(data$nb_connexions)==1){
+        
+        
+        p<-d3tree3(treemap(data, index= "category_site",  vSize= "nb_connexions"),
+                   rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+      }
+      
+      else {
+        
+        p <- d3tree3(treemap(data, index= "category_site",  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                   rootname = "Average nb of connexions")
+        
+      }
+      
       
       }
     
@@ -128,8 +219,20 @@ Viz3_plot <- function(start, end, duration_min=0, duration_max=7200, districts=c
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration))) %>% group_by(category_site,site) %>% 
         summarise(nb_connexions = mean(as.numeric(nb_connexions)), duration = mean(as.numeric(duration)))
     
-      p<-d3tree3(treemap(data, index= c("category_site", "site") ,  vSize= "nb_connexions", vColor = "duration", type = "value"),
-              rootname = "Average nb of connexions")
+      if (length(data$nb_connexions)==1){
+        
+        
+        p<-d3tree3(treemap(data, index= c("category_site", "site") ,  vSize= "nb_connexions"),
+                   rootname = paste("Average nb of connexions  : " , as.character(data$nb_connexions[1])))
+      }
+      
+      else {
+        
+        p<-d3tree3(treemap(data, index= c("category_site", "site") ,  vSize= "nb_connexions", vColor = "duration", type = "value"),
+                   rootname = "Average nb of connexions")
+        
+      }
+      
       
       }
     
@@ -151,13 +254,12 @@ cat_sites<-c("All")
 sites<-c("All")
 countries<-c("All")
 devices<-c("All")
-analysis_axis<-"Ardt"
+analysis_axis<-"None"
 hierarchy_view <- FALSE
 
 
 Viz3_plot(start, end, duration_min, duration_max, districts, cat_sites, sites, countries, devices, analysis_axis, hierarchy_view)
 
   
-# fonctionne pas pour un unique point argument 
-# None ne fonctionne pas 
+
 
