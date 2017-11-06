@@ -14,7 +14,9 @@ library(shinyjs)
 
 shinyServer(function(input, output) {
   
-  output$`Date scope` <- renderUI({dateRangeInput(inputId = "Date scope", label = "Date scope", language = "fr", start = "2016-01-01", end  = "2016-12-31")})
+  
+  
+  output$`Date scope` <- renderUI({dateRangeInput(inputId = "Date scope", label = "Date scope", language = "fr", start = "2016-01-01", end  = "2016-01-02")})
   output$`Duration scope` <- renderUI({sliderInput("Duration scope", "Duration scope", min = 0, max = 7200, value = c(0, 7200))})
   
   
@@ -155,9 +157,8 @@ shinyServer(function(input, output) {
     contentType = "text/csv"
   )
   
-  
-  
-  
+  start <- reactive ({ lubridate::ymd(input$`Date scope`[1])})
+  end <- reactive ({ lubridate::ymd(input$`Date scope`[2])})
   duration_min<-  reactive({input$`Duration scope`[1]})  
   duration_max<-  reactive({input$`Duration scope`[2]}) 
   districts<- reactive({input$Borought}) 
@@ -171,14 +172,15 @@ shinyServer(function(input, output) {
   
   output$Viz1 <- renderPlotly({
     
+   
+    
     if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
     
-    start<- lubridate::ymd("2016-11-14")
-    end<- lubridate::ymd("2016-11-14")
     
-    return(Viz1_plot(start, end, duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), 
+    
+    return(Viz1_plot(start(), end(), duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), 
                      devices(), analysis_axis(), FALSE))
     
     
@@ -186,14 +188,15 @@ shinyServer(function(input, output) {
   
   output$Viz2 <- renderPlotly({
     
+    
+    
     if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
     
-    start<- lubridate::ymd("2016-07-10")
-    end<- lubridate::ymd("2016-07-10")
+ 
     
-    return(Viz1_plot(start, end, duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), 
+    return(Viz1_plot(start(), end(), duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), 
                      devices(), analysis_axis(), TRUE))
     
   })
@@ -204,11 +207,9 @@ shinyServer(function(input, output) {
        || is.null(input$Country) )
       return()
     
-    start<- lubridate::ymd("2016-07-10")
-    end<- lubridate::ymd("2016-07-10")
+   
     
-    
-    return(Map_plot(start, end, duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), devices()))
+    return(Map_plot(start(), end(), duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), devices()))
     
     
   })
@@ -221,12 +222,11 @@ shinyServer(function(input, output) {
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
     
-    start<- lubridate::ymd("2016-07-10")
-    end<- lubridate::ymd("2016-07-10")
+  
     
     
     
-    return (Viz3_plot(start, end, duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), devices(),
+    return (Viz3_plot(start(), end(), duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), devices(),
                       analysis_axis(),FALSE))
     
     
@@ -235,14 +235,14 @@ shinyServer(function(input, output) {
   
   output$Viz4 <- renderD3tree3({
     
+  
     if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
     
-    start<- lubridate::ymd("2016-07-10")
-    end<- lubridate::ymd("2016-07-10")
+
     
-    return (Viz3_plot(start, end, duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), devices(),
+    return (Viz3_plot(start(), end(), duration_min(), duration_max(), districts(), cat_sites(), sites(), countries(), devices(),
                       analysis_axis(),TRUE))
     
     
@@ -257,8 +257,7 @@ shinyServer(function(input, output) {
 # Ajouter un bouton pour generer les visualisations une fois le filtre choisi
 # Regler probleme date lien avec les visu
 # faire des sous fenetre avec les images agrandies
-#regler probeleme avec la treemap
-
+# probleme avec viz 2
 
 
 

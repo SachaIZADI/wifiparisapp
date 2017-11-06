@@ -8,6 +8,10 @@ library(d3treeR)
 library(shinycssloaders)
 library(shinyjs)
 
+
+
+
+
   header <- dashboardHeader(title = "Paris Wifi")
 
   sidebar <- dashboardSidebar(
@@ -15,6 +19,7 @@ library(shinyjs)
       menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
       menuItem("Raw data", tabName = "Raw_data", icon = icon("database")),
       menuItem("Source code", icon = icon("file-code-o"), href = "https://github.com/amirbenmahjoub/wifiparisapp")
+      
     ),
 
     uiOutput("Date scope"),
@@ -32,6 +37,8 @@ library(shinyjs)
 
 
   body <- dashboardBody(
+    
+    
 
     tabItems(
       
@@ -45,8 +52,7 @@ library(shinyjs)
                   
                   title = "Paris map",
                   id = "tabset2", height = "450px", width = 12,
-                  tabPanel("With coverage area", withSpinner(leafletOutput("mymap"))),
-                  tabPanel("Without coverage area")
+                  tabPanel("Wifi sites map", withSpinner(leafletOutput("mymap")))
                 )
                 
                 
