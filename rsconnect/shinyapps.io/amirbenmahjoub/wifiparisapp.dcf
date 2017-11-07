@@ -1,0 +1,12 @@
+name: wifiparisapp
+title: wifiparisapp
+username:
+account: amirbenmahjoub
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 232566
+bundleId: 1062668
+url: https://amirbenmahjoub.shinyapps.io/wifiparisapp/
+when: 1510048638.94036
+asMultiple: FALSE
+asStatic: FALSE

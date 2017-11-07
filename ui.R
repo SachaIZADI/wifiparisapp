@@ -29,7 +29,8 @@ library(shinyjs)
     uiOutput("Site"),
     uiOutput("Country"),
     uiOutput("Category device"),
-    uiOutput("Analysis axis")
+    uiOutput("Analysis axis"),
+    actionButton(inputId = "go", label = "plot")
     
     
 
@@ -68,8 +69,8 @@ library(shinyjs)
                          
                          title = "Number of connexions trend",
                          id = "tabset1", height = "250px", width = 6,
-                         tabPanel("With smoothering", withSpinner(plotlyOutput('Viz1'))),
-                       tabPanel("Without smoothering", withSpinner(plotlyOutput('Viz2')))
+                         tabPanel("Without smoothering", withSpinner(plotlyOutput('Viz2'))),
+                       tabPanel("With smoothering", withSpinner(plotlyOutput('Viz1')))
                 ),
                 
                 
