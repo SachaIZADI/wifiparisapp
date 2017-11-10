@@ -12,7 +12,7 @@ shinyServer(function(input, output) {
 
 
   
-  output$`Date scope` <- renderUI({dateRangeInput(inputId = "Date scope", label = "Date scope", language = "fr", start = "2016-01-01", end  = "2016-01-02")})
+  output$`Date scope` <- renderUI({dateRangeInput(inputId = "Date scope", label = "Date scope", language = "fr", start = "2016-01-01", end  = "2016-12-31")})
   output$`Duration scope` <- renderUI({sliderInput("Duration scope", "Duration scope", min = 0, max = 7200, value = c(0, 7200))})
 
 
@@ -40,7 +40,7 @@ shinyServer(function(input, output) {
     else
 
 
-      selectizeInput(inputId= "Category site", label = "Category site",  multiple = TRUE, selected = "All", choices = c("All", as.list(unique(Data_Viz_1 %>%  filter (Ardt %in% input$Borought) %>% select(category_site)))), options = list(plugins =
+      selectizeInput(inputId= "Category site", label = "Category site",  multiple = TRUE, selected = "All", choices = c("All", as.list(unique(filter_DB %>%  filter (Ardt %in% input$Borought) %>% select(category_site)))), options = list(plugins =
                                                                                                                                                                                                                                                list('remove_button', 'restore_on_backspace',
                                                                                                                                                                                                                                                     'drag_drop'),placeholder = 'select a site category'))
   })
@@ -51,7 +51,7 @@ shinyServer(function(input, output) {
     if(is.null(input$Borought) || is.null(input$`Category site`))
       return()
 
-    new_list_2 <- Data_Viz_1
+    new_list_2 <- filter_DB
 
     if (!"All" %in% input$Borought)
       new_list_2 <- new_list_2 %>% filter(Ardt %in% input$Borought)
@@ -70,7 +70,7 @@ shinyServer(function(input, output) {
     if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) )
       return()
 
-    new_list_3 <- Data_Viz_1
+    new_list_3 <- filter_DB
 
     if (!"All" %in% input$Borought)
       new_list_3 <- new_list_3 %>% filter(Ardt %in% input$Borought)
