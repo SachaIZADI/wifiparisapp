@@ -11,7 +11,7 @@ library(shinyjs)
 shinyServer(function(input, output) {
 
 
-
+  
   output$`Date scope` <- renderUI({dateRangeInput(inputId = "Date scope", label = "Date scope", language = "fr", start = "2016-01-01", end  = "2016-01-02")})
   output$`Duration scope` <- renderUI({sliderInput("Duration scope", "Duration scope", min = 0, max = 7200, value = c(0, 7200))})
 
@@ -179,20 +179,20 @@ shinyServer(function(input, output) {
 
 
 
-  # output$Viz1 <- renderPlotly({
-  # 
-  # 
-  # 
-  #   if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
-  #      || is.null(input$Country) || is.null(input$`Analysis axis`))
-  #     return()
-  # 
-  # 
-  # 
-  #   return(Viz1_plot_V2(a_set_bis(),start(), end(),  analysis_axis(), FALSE))
-  # 
-  # 
-  # })
+  output$Viz1 <- renderPlotly({
+
+
+
+    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+       || is.null(input$Country) || is.null(input$`Analysis axis`))
+      return()
+
+
+
+    return(Viz1_plot_V2(a_set_bis(),start(), end(),  analysis_axis(), FALSE))
+
+
+  })
   
   output$Viz2 <- renderPlotly({
 
