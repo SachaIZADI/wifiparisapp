@@ -16,12 +16,12 @@ shinyServer(function(input, output) {
   output$`Duration scope` <- renderUI({sliderInput("Duration scope", "Duration scope", min = 0, max = 7200, value = c(0, 7200))})
 
 
-  output$Borought <- renderUI({
-    selectizeInput(inputId = "Borought", label = "Borought",  multiple = TRUE, selected = "All", choices = c("All", "1","2","3","4","5","6","7","8","9","10","11","12","13","14",
+  output$Ardt <- renderUI({
+    selectizeInput(inputId = "Ardt", label = "Ardt",  multiple = TRUE, selected = "All", choices = c("All", "1","2","3","4","5","6","7","8","9","10","11","12","13","14",
                                                                                                              "15","16","17","18","19","20"), options = list(plugins =  list('remove_button',
                                                                                                                                                                             'restore_on_backspace',
                                                                                                                                                                             'drag_drop'),
-                                                                                                                                                            placeholder = 'select a Borought') )
+                                                                                                                                                            placeholder = 'select a Ardt') )
   })
 
 
@@ -30,17 +30,17 @@ shinyServer(function(input, output) {
 
 
 
-    if(is.null(input$Borought))
+    if(is.null(input$Ardt))
       return()
 
-    else if ("All" %in% input$Borought)
+    else if ("All" %in% input$Ardt)
       selectizeInput(inputId= "Category site", label = "Category site",  multiple = TRUE, selected = "All", choices = c("All", "Bibliothèque","Espace ouvert/vert","Maison d'accompagnement","Centre de sport et bien être","Centre d'animation et culturel","Mairie"), options = list(plugins =
                                                                                                                                                                                                                                                                                          list('remove_button', 'restore_on_backspace',
                                                                                                                                                                                                                                                                                               'drag_drop'), placeholder = 'select a site category'))
     else
 
 
-      selectizeInput(inputId= "Category site", label = "Category site",  multiple = TRUE, selected = "All", choices = c("All", as.list(unique(filter_DB %>%  filter (Ardt %in% input$Borought) %>% select(category_site)))), options = list(plugins =
+      selectizeInput(inputId= "Category site", label = "Category site",  multiple = TRUE, selected = "All", choices = c("All", as.list(unique(filter_DB %>%  filter (Ardt %in% input$Ardt) %>% select(category_site)))), options = list(plugins =
                                                                                                                                                                                                                                                list('remove_button', 'restore_on_backspace',
                                                                                                                                                                                                                                                     'drag_drop'),placeholder = 'select a site category'))
   })
@@ -48,13 +48,13 @@ shinyServer(function(input, output) {
 
   output$Site <- renderUI({
 
-    if(is.null(input$Borought) || is.null(input$`Category site`))
+    if(is.null(input$Ardt) || is.null(input$`Category site`))
       return()
 
     new_list_2 <- filter_DB
 
-    if (!"All" %in% input$Borought)
-      new_list_2 <- new_list_2 %>% filter(Ardt %in% input$Borought)
+    if (!"All" %in% input$Ardt)
+      new_list_2 <- new_list_2 %>% filter(Ardt %in% input$Ardt)
     if (!"All" %in% input$`Category site`)
       new_list_2 <- new_list_2 %>% filter(category_site %in% input$`Category site`)
 
@@ -67,13 +67,13 @@ shinyServer(function(input, output) {
 
   output$Country <- renderUI({
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) )
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) )
       return()
 
     new_list_3 <- filter_DB
 
-    if (!"All" %in% input$Borought)
-      new_list_3 <- new_list_3 %>% filter(Ardt %in% input$Borought)
+    if (!"All" %in% input$Ardt)
+      new_list_3 <- new_list_3 %>% filter(Ardt %in% input$Ardt)
     if (!"All" %in% input$`Category site`)
       new_list_3 <- new_list_3 %>% filter(category_site %in% input$`Category site`)
     if (!"All" %in% input$Site)
@@ -106,8 +106,8 @@ shinyServer(function(input, output) {
     Data_Viz_1_Filter<- Data_Viz_1 %>%  filter(as.Date(start_time) >=start & as.Date(start_time)<=end) %>% filter(duration < end_dur) %>%
       filter(duration > start_dur)
 
-    if (!"All" %in% input$Borought ){
-      Data_Viz_1_Filter <- Data_Viz_1_Filter %>% filter(Ardt %in% input$Borought )
+    if (!"All" %in% input$Ardt ){
+      Data_Viz_1_Filter <- Data_Viz_1_Filter %>% filter(Ardt %in% input$Ardt )
     }
     if (!"All" %in% input$`Category site`){
       Data_Viz_1_Filter <- Data_Viz_1_Filter %>% filter(category_site %in% input$`Category site`)
@@ -137,7 +137,7 @@ shinyServer(function(input, output) {
 
   output$data_table <- DT::renderDataTable(DT::datatable({
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country))
       return()
 
@@ -157,7 +157,7 @@ shinyServer(function(input, output) {
   end <- reactive ({ lubridate::ymd(input$`Date scope`[2])})
   duration_min<-  reactive({input$`Duration scope`[1]})
   duration_max<-  reactive({input$`Duration scope`[2]})
-  districts<- reactive({input$Borought})
+  districts<- reactive({input$Ardt})
   cat_sites<- reactive({input$`Category site`})
   sites<- reactive({input$Site})
   countries<- reactive({input$Country})
@@ -165,11 +165,11 @@ shinyServer(function(input, output) {
   analysis_axis<- reactive({input$`Analysis axis`})
 
   a_set <- reactive({ Viz1_Filter(lubridate::ymd(input$`Date scope`[1]), lubridate::ymd(input$`Date scope`[2])
-                                  , input$`Duration scope`[1], input$`Duration scope`[2], input$Borought, input$`Category site`
+                                  , input$`Duration scope`[1], input$`Duration scope`[2], input$Ardt, input$`Category site`
                                   , input$Site, input$Country, input$`Category device`) })
 
   a_set_bis <- reactive({ Viz1_Filter(lubridate::ymd(input$`Date scope`[1]), lubridate::ymd(input$`Date scope`[2])
-                                      , input$`Duration scope`[1], input$`Duration scope`[2], input$Borought, input$`Category site`
+                                      , input$`Duration scope`[1], input$`Duration scope`[2], input$Ardt, input$`Category site`
                                       , input$Site, input$Country, input$`Category device`) %>%
       number_connexions(lubridate::ymd(input$`Date scope`[1]), lubridate::ymd(input$`Date scope`[2]), input$`Analysis axis`) })
 
@@ -183,7 +183,7 @@ shinyServer(function(input, output) {
 
 
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
 
@@ -198,7 +198,7 @@ shinyServer(function(input, output) {
 
 
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
 
@@ -210,7 +210,7 @@ shinyServer(function(input, output) {
 
   output$mymap <- renderLeaflet({
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) )
       return()
 
@@ -225,7 +225,7 @@ shinyServer(function(input, output) {
 
   output$Viz3 <- renderD3tree3({
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
 
@@ -243,7 +243,7 @@ shinyServer(function(input, output) {
   output$Viz4 <- renderD3tree3({
 
 
-    if(is.null(input$Borought) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
+    if(is.null(input$Ardt) || is.null(input$`Category site`) || is.null(input$Site) || is.null(input$`Category device`)
        || is.null(input$Country) || is.null(input$`Analysis axis`))
       return()
 

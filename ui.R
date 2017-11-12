@@ -23,13 +23,13 @@ library(shinyjs)
 
     uiOutput("Date scope"),
     uiOutput("Duration scope"),
-    uiOutput("Borought"),
+    uiOutput("Ardt"),
     uiOutput("Category site"),
     uiOutput("Site"),
     uiOutput("Country"),
     uiOutput("Category device"),
-    uiOutput("Analysis axis"),
-    actionButton(inputId = "go", label = "plot")
+    uiOutput("Analysis axis")
+ 
     
     
 
