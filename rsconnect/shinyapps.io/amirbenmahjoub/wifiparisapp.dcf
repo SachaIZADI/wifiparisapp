@@ -5,8 +5,8 @@ account: amirbenmahjoub
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 232566
-bundleId: 1062668
+bundleId: 1071790
 url: https://amirbenmahjoub.shinyapps.io/wifiparisapp/
-when: 1510048638.94036
+when: 1510525595.52765
 asMultiple: FALSE
 asStatic: FALSE
