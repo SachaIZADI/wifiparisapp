@@ -7,7 +7,7 @@ also the wifi paris network. The Database is from Paris Open Data website. The S
 also with an already cleaned and structured database. 
 
 <p align="center">
-  <img src="wifiparisapp/App_screen.png" width="350"/>
+  <img src="App_screen.png" width="350"/>
 
 </p>
 
