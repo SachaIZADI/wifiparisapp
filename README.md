@@ -6,6 +6,6 @@ connections trends, wifi coverage, connexion duration, device split... The main 
 also the wifi paris network. The Database is from Paris Open Data website. The Shiny app  work with an R-Package "wifiparis" that we built and 
 also with an already cleaned and structured database. 
 
-![Alt text](relative/path/to/img.jpg?raw=true "App_screen.png")
+![Alt text](wifiparisapp/App_screen.png?raw=true "App_screen.png")
 
  
